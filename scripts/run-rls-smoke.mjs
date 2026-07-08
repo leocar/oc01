@@ -32,7 +32,10 @@ try {
 
 async function waitForSqlServer() {
   for (let attempt = 1; attempt <= retries; attempt += 1) {
-    const result = await runSqlQuery("SELECT 1", { reject: false });
+    const result = await runSqlQuery("SELECT 1", {
+      reject: false,
+      stdio: "ignore",
+    });
     if (result.exitCode === 0) {
       return;
     }
