@@ -1,0 +1,65 @@
+schema: spec-driven
+
+context: |
+  Project: oc01
+  Stack: pnpm workspace baseline with planned NestJS API, Angular web app, shared contracts, and SQL Server assets.
+  Architecture: SaaS multi-tenant v2 is being delivered through SDD work units; runtime frameworks are introduced in later slices.
+  Testing: Workspace-level pnpm scripts run API and Web Vitest suites, TypeScript checks, Prettier checks, and Angular/Vite web build.
+  Style: No project convention files detected; default to existing repository structure and future stack conventions.
+
+strict_tdd: false
+
+testing:
+  detected: 2026-07-07
+  strict_tdd: false
+  runner:
+    available: true
+    framework: pnpm-workspace
+    command: "pnpm test"
+  layers:
+    unit:
+      available: true
+      tool: "Vitest for API and Web"
+    integration:
+      available: false
+      tool: ""
+    e2e:
+      available: false
+      tool: ""
+  coverage:
+    available: false
+    command: ""
+  quality:
+    linter:
+      available: true
+      command: "pnpm lint"
+    type_checker:
+      available: true
+      command: "pnpm typecheck"
+    formatter:
+      available: true
+      command: "pnpm format:check"
+
+rules:
+  proposal:
+    - Ground scope in the provided SaaS multi-tenant v2 specification and note assumptions explicitly.
+    - Include rollback and migration notes for tenancy, auth, billing, and data isolation changes.
+  specs:
+    - Use Given/When/Then scenarios.
+    - Use RFC 2119 keywords (MUST, SHOULD, MAY).
+  design:
+    - Document tenant isolation boundaries, persistence choices, and cross-tenant risk controls.
+    - Include sequence or flow diagrams for auth, provisioning, and billing when flows become concrete.
+  tasks:
+    - Group by vertical slice and keep tasks reviewable in one session.
+    - Add explicit test tasks once an executable stack exists.
+  apply:
+    - Follow the future implementation stack conventions once selected.
+    tdd: false
+    test_command: "pnpm test"
+  verify:
+    test_command: "npx pnpm@9.15.4 test"
+    build_command: "npx pnpm@9.15.4 typecheck && npx pnpm@9.15.4 --filter @oc01/web build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas or irreversible data migrations.
