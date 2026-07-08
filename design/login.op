@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Login",
+      "children": []
+    }
+  ],
+  "variables": {},
+  "themes": {}
+}

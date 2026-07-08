@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "page-saas-admin-shell",
+      "name": "SaaS Admin Shell",
+      "children": [
+        {
+          "id": "root-dark-glass-shell",
+          "type": "frame",
+          "name": "SaaS Admin Shell - Dark Glass",
+          "width": 1200,
+          "height": 908,
+          "layout": "horizontal",
+          "gap": 24,
+          "padding": 24,
+          "fill": [
+            {
+              "type": "linear_gradient",
+              "angle": 135,
+              "stops": [
+                { "offset": 0, "color": "#080B14" },
+                { "offset": 0.5, "color": "#111827" },
+                { "offset": 1, "color": "#1E1B4B" }
+              ]
+            }
+          ],
+          "children": [
+            {
+              "id": "sidebar-glass",
+              "type": "frame",
+              "name": "Glass Sidebar",
+              "width": 248,
+              "height": 812,
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 20,
+              "cornerRadius": 28,
+              "fill": [{ "type": "solid", "color": "#111827" }],
+              "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] },
+              "children": [
+                {
+                  "id": "brand-title",
+                  "type": "text",
+                  "name": "Brand Title",
+                  "content": "OC01 Control\nTenant Security",
+                  "fontFamily": "IBM Plex Sans",
+                  "fontSize": 18,
+                  "fontWeight": 700,
+                  "fill": [{ "type": "solid", "color": "#F9FAFB" }]
+                },
+                {
+                  "id": "nav-copy",
+                  "type": "text",
+                  "name": "Navigation Copy",
+                  "content": "Provisioning\nTenants\nAudit Log\nRLS Policies",
+                  "fontFamily": "IBM Plex Sans",
+                  "fontSize": 14,
+                  "fill": [{ "type": "solid", "color": "#CBD5E1" }]
+                },
+                {
+                  "id": "isolation-status",
+                  "type": "text",
+                  "name": "Isolation Status",
+                  "content": "ISOLATION STATUS\nRLS Active\nBackend and persistence boundaries enforced.",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 13,
+                  "fill": [{ "type": "solid", "color": "#67E8F9" }]
+                }
+              ]
+            },
+            {
+              "id": "main-command-panel",
+              "type": "frame",
+              "name": "Main Command Panel",
+              "width": 880,
+              "height": 812,
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "id": "hero-title",
+                  "type": "text",
+                  "name": "SaaS Tenant Command",
+                  "content": "SaaS Tenant Command\nsuper_admin provisioning and isolation monitoring",
+                  "fontFamily": "IBM Plex Sans",
+                  "fontSize": 32,
+                  "fontWeight": 700,
+                  "fill": [{ "type": "solid", "color": "#F9FAFB" }]
+                },
+                {
+                  "id": "metric-copy",
+                  "type": "text",
+                  "name": "Security Metrics",
+                  "content": "Tenants: 24\nDenied cross-tenant: 7\nRLS policy: ON",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 22,
+                  "fill": [{ "type": "solid", "color": "#F9FAFB" }]
+                },
+                {
+                  "id": "provision-panel-copy",
+                  "type": "text",
+                  "name": "Provision Panel Copy",
+                  "content": "Provision Company\nCreate tenant and first admin atomically. Bootstrap uses one-time-token rotation.",
+                  "fontFamily": "IBM Plex Sans",
+                  "fontSize": 20,
+                  "fill": [{ "type": "solid", "color": "#CFFAFE" }]
+                },
+                {
+                  "id": "audit-copy",
+                  "type": "text",
+                  "name": "Audit Signals",
+                  "content": "403 cross-tenant access denied\nSESSION_CONTEXT set for transaction\nEnumeration threshold approaching",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 15,
+                  "fill": [{ "type": "solid", "color": "#FCD34D" }]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {},
+  "themes": {}
+}
