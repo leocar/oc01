@@ -12,6 +12,12 @@ const baseEnv = {
   SQLSERVER_USER: "sa",
 };
 
+const dockerEnv = {
+  SQLCMD_MODE: "docker",
+  SQLSERVER_PASSWORD: "secret-password",
+  SQLSERVER_USER: "sa",
+};
+
 describe("run-local-rls-smoke", () => {
   it("fails clearly when SQLSERVER_PASSWORD is missing", async () => {
     await assert.rejects(
@@ -57,6 +63,59 @@ describe("run-local-rls-smoke", () => {
       assert.equal(call.options.env.SQLCMDPASSWORD, "secret-password");
       assert.equal(call.args.includes("secret-password"), false);
     }
+  });
+
+  it("builds docker sqlcmd client commands without exposing the password", async () => {
+    const calls = [];
+    await runLocalRlsSmoke(
+      { env: dockerEnv, now: () => 12345 },
+      recordingRunner(calls),
+    );
+
+    assert.equal(calls.length, 3);
+
+    for (const call of calls) {
+      assert.equal(call.command, "docker");
+      assert.equal(call.args[0], "run");
+      assert.equal(call.args.includes("--rm"), true);
+      assert.equal(call.args.includes("/opt/mssql-tools18/bin/sqlcmd"), true);
+      assert.equal(call.args[call.args.indexOf("SQLCMDPASSWORD") - 1], "-e");
+      assert.equal(argAfter(call.args, "-w"), "/work/db/sqlserver/tests");
+      assert.match(argAfter(call.args, "-v"), /db:\/work\/db:ro$/);
+      assert.equal(argAfter(call.args, "-S"), "tcp:host.docker.internal,1433");
+      assert.equal(call.args.includes("-P"), false);
+      assert.equal(call.args.includes("secret-password"), false);
+      assert.equal(call.options.env.SQLCMDPASSWORD, "secret-password");
+    }
+  });
+
+  it("uses the default SQL Server image in docker mode and allows host and image overrides", async () => {
+    const calls = [];
+    await runLocalRlsSmoke(
+      {
+        env: {
+          ...dockerEnv,
+          SQLCMD_DOCKER_IMAGE: "example/sqlcmd-client:latest",
+          SQLSERVER_HOST: "sql.example.test",
+        },
+        now: () => 12345,
+      },
+      recordingRunner(calls),
+    );
+
+    assert.equal(calls[0].args.includes("example/sqlcmd-client:latest"), true);
+    assert.equal(argAfter(calls[0].args, "-S"), "tcp:sql.example.test,1433");
+
+    const defaultImageCalls = [];
+    await runLocalRlsSmoke(
+      { env: dockerEnv, now: () => 12345 },
+      recordingRunner(defaultImageCalls),
+    );
+
+    assert.equal(
+      defaultImageCalls[0].args.includes("mcr.microsoft.com/mssql/server:2025-latest"),
+      true,
+    );
   });
 
   it("runs cleanup after the smoke file fails", async () => {

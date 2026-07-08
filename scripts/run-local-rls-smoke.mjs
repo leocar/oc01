@@ -4,7 +4,11 @@ import { pathToFileURL } from "node:url";
 import path from "node:path";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const dbDir = path.join(root, "db");
 const testsDir = path.join(root, "db", "sqlserver", "tests");
+const dockerTestsDir = "/work/db/sqlserver/tests";
+const dockerSqlcmdPath = "/opt/mssql-tools18/bin/sqlcmd";
+const defaultDockerImage = "mcr.microsoft.com/mssql/server:2025-latest";
 
 if (isCliEntryPoint()) {
   await main().catch((error) => {
@@ -19,8 +23,9 @@ async function main() {
 
 export async function runLocalRlsSmoke(config = {}, runner = spawnRunner) {
   const env = config.env ?? process.env;
-  const sqlcmdPath = env.SQLCMD_PATH ?? "sqlcmd";
-  const host = env.SQLSERVER_HOST ?? "localhost";
+  const client = sqlcmdClient(env);
+  const host = env.SQLSERVER_HOST
+    ?? (client.mode === "docker" ? "host.docker.internal" : "localhost");
   const port = env.SQLSERVER_PORT ?? "1433";
   const user = env.SQLSERVER_USER ?? "sa";
   const password = env.SQLSERVER_PASSWORD;
@@ -48,7 +53,7 @@ export async function runLocalRlsSmoke(config = {}, runner = spawnRunner) {
       password,
       port,
       query: createDatabaseSql(smokeDatabase),
-      sqlcmdPath,
+      client,
       user,
     });
     created = true;
@@ -60,7 +65,7 @@ export async function runLocalRlsSmoke(config = {}, runner = spawnRunner) {
       host,
       password,
       port,
-      sqlcmdPath,
+      client,
       user,
     });
   } catch (error) {
@@ -76,7 +81,7 @@ export async function runLocalRlsSmoke(config = {}, runner = spawnRunner) {
           password,
           port,
           query: dropDatabaseSql(smokeDatabase),
-          sqlcmdPath,
+          client,
           user,
         });
       } catch (cleanupError) {
@@ -101,19 +106,62 @@ export async function runLocalRlsSmoke(config = {}, runner = spawnRunner) {
 }
 
 function runSqlQuery(runner, options) {
-  return runner(
-    options.sqlcmdPath,
-    sqlcmdArgs(options, options.adminDatabase, ["-Q", options.query]),
-    sqlcmdOptions(options),
-  );
+  return runSqlcmd(runner, options, options.adminDatabase, ["-Q", options.query]);
 }
 
 function runSqlFile(runner, options) {
-  return runner(
-    options.sqlcmdPath,
-    sqlcmdArgs(options, options.database, ["-i", options.filePath]),
-    sqlcmdOptions(options),
-  );
+  return runSqlcmd(runner, options, options.database, ["-i", options.filePath]);
+}
+
+function runSqlcmd(runner, options, database, args) {
+  const command = sqlcmdCommand(options, database, args);
+  return runner(command.executable, command.args, command.options);
+}
+
+function sqlcmdClient(env) {
+  if (env.SQLCMD_MODE === "docker" || env.SQLCMD_DOCKER_IMAGE) {
+    return {
+      image: env.SQLCMD_DOCKER_IMAGE ?? defaultDockerImage,
+      mode: "docker",
+    };
+  }
+
+  return {
+    mode: "local",
+    path: env.SQLCMD_PATH ?? "sqlcmd",
+  };
+}
+
+function sqlcmdCommand(options, database, args) {
+  const sqlcmd = sqlcmdArgs(options, database, args);
+
+  if (options.client.mode === "docker") {
+    return {
+      executable: "docker",
+      args: [
+        "run",
+        "--rm",
+        "-e",
+        "ACCEPT_EULA=Y",
+        "-e",
+        "SQLCMDPASSWORD",
+        "-v",
+        `${dbDir}:/work/db:ro`,
+        "-w",
+        dockerTestsDir,
+        options.client.image,
+        dockerSqlcmdPath,
+        ...sqlcmd,
+      ],
+      options: sqlcmdOptions({ ...options, cwd: root }),
+    };
+  }
+
+  return {
+    executable: options.client.path,
+    args: sqlcmd,
+    options: sqlcmdOptions(options),
+  };
 }
 
 function sqlcmdArgs(options, database, args) {

@@ -41,6 +41,22 @@ npx pnpm@9.15.4 smoke:sqlserver:local
 Remove-Item Env:\SQLSERVER_PASSWORD
 ```
 
+If local `sqlcmd` is not installed but Docker is available, run the SQLCMD client from a temporary container. In Docker mode, `SQLSERVER_HOST` defaults to `host.docker.internal` so the client container can reach SQL Server running on the Windows host.
+
+```powershell
+$env:SQLCMD_MODE = "docker"
+$env:SQLSERVER_PORT = "1433"
+$credential = Get-Credential -UserName "sa"
+$env:SQLSERVER_USER = $credential.UserName
+$env:SQLSERVER_PASSWORD = $credential.GetNetworkCredential().Password
+$env:SQLSERVER_DATABASE = "master"
+npx pnpm@9.15.4 smoke:sqlserver:local
+Remove-Item Env:\SQLSERVER_PASSWORD
+Remove-Item Env:\SQLCMD_MODE
+```
+
+Set `SQLCMD_DOCKER_IMAGE` to override the Docker client image. By default, Docker mode uses `mcr.microsoft.com/mssql/server:2025-latest` and runs `/opt/mssql-tools18/bin/sqlcmd` with the repository `db` directory mounted read-only.
+
 `SQLSERVER_DATABASE` is only used for admin create/drop commands. Set `SQL_SMOKE_DATABASE` to override the generated disposable database name, or `SQL_SMOKE_KEEP_DATABASE=true` to keep it for debugging. When a database is kept, the script prints its name.
 
 Manual cleanup for a kept smoke database:
@@ -52,4 +68,4 @@ sqlcmd -C -S localhost -U $cleanupCredential.UserName -d master -Q "ALTER DATABA
 Remove-Item Env:\SQLCMDPASSWORD
 ```
 
-System database names (`master`, `model`, `msdb`, `tempdb`) are rejected for `SQL_SMOKE_DATABASE`. `SQLCMD_PATH` can be set when `sqlcmd` is not on `PATH`. Do not store SQL Server passwords in source control or shell history.
+System database names (`master`, `model`, `msdb`, `tempdb`) are rejected for `SQL_SMOKE_DATABASE`. `SQLCMD_PATH` can be set when local `sqlcmd` is not on `PATH`; `SQLCMD_MODE=docker` or `SQLCMD_DOCKER_IMAGE` can be used when local `sqlcmd` is not installed. Do not store SQL Server passwords in source control or shell history.
