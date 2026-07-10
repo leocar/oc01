@@ -2,6 +2,8 @@
 
 Angular standalone frontend workspace for SaaS multi-tenant v2.
 
+Back to the [OC01 documentation hub](../../README.md). For cross-workspace architecture, setup, and runtime caveats, start with [technical architecture](../../docs/technical/architecture.md), [technical onboarding](../../docs/technical/onboarding.md), and [runtime and operations](../../docs/technical/runtime-and-operations.md).
+
 ## Current Scope
 
 - Zoneless Angular application shell.

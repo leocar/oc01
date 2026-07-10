@@ -1,5 +1,7 @@
 # SQL Server Migration Order
 
+Back to the [OC01 documentation hub](../../../README.md). For SQL ownership and runtime caveats, see [technical architecture](../../../docs/technical/architecture.md) and [runtime and operations](../../../docs/technical/runtime-and-operations.md).
+
 Run the SQL Server assets in this order for a clean environment:
 
 1. `schema/001_core.sql`
