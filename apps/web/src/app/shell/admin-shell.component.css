@@ -77,7 +77,9 @@ nav,
 .content,
 .provision,
 .audit,
-.panels {
+.panels,
+.provision-form,
+.feedback dl {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -177,12 +179,59 @@ input {
   padding: 0 14px;
 }
 
+input[aria-invalid="true"] {
+  border-color: #fb7185;
+  box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.18);
+}
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+}
+
+.field-error {
+  margin-top: -10px;
+  color: #fecaca;
+  font-size: 0.92rem;
+}
+
 .feedback {
   border: 1px solid #10b981;
   border-radius: 18px;
   padding: 14px;
   color: #bbf7d0;
   background: rgba(5, 46, 22, 0.72);
+}
+
+.feedback h3,
+.feedback dl,
+.feedback dd {
+  margin: 0;
+}
+
+.feedback dt {
+  color: #a7f3d0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feedback dd {
+  overflow-wrap: anywhere;
+}
+
+.pending {
+  border-color: #67e8f9;
+  color: #cffafe;
+  background: rgba(8, 47, 73, 0.72);
+}
+
+.error-panel {
+  border-color: #fb7185;
+  color: #fecaca;
+  background: rgba(69, 10, 10, 0.72);
 }
 
 .audit-row {

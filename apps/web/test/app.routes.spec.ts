@@ -1,3 +1,4 @@
+import { provideHttpClient } from "@angular/common/http";
 import { Component, provideZonelessChangeDetection } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 import { provideRouter, Router, RouterOutlet } from "@angular/router";
@@ -15,7 +16,11 @@ describe("app routes", () => {
   it("redirects default entry to /login when no authenticated session exists", async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [provideZonelessChangeDetection(), provideRouter(routes)],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter(routes),
+        provideHttpClient(),
+      ],
     }).compileComponents();
 
     TestBed.createComponent(TestHostComponent);

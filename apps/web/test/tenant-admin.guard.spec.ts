@@ -23,7 +23,7 @@ describe("tenantAdminGuard", () => {
     expect(result).toBe(true);
   });
 
-  it("redirects non-admin users to login", () => {
+  it("redirects unauthenticated users to login", () => {
     TestBed.configureTestingModule({
       providers: [provideZonelessChangeDetection(), provideRouter([])],
     });
@@ -33,5 +33,39 @@ describe("tenantAdminGuard", () => {
     );
 
     expect(result).toEqual(TestBed.inject(Router).parseUrl("/login"));
+  });
+
+  it("redirects authenticated non-super-admin users to login", () => {
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection(), provideRouter([])],
+    });
+    TestBed.inject(AuthStore).setState({
+      userId: "tenant-admin",
+      companyId: "company-1",
+      roles: ["tenant_admin"],
+    });
+
+    const result = TestBed.runInInjectionContext(() =>
+      tenantAdminGuard({} as never, {} as never),
+    );
+
+    expect(result).toEqual(TestBed.inject(Router).parseUrl("/login"));
+  });
+
+  it("allows protected shell entry after successful login authority is applied", () => {
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection(), provideRouter([])],
+    });
+    TestBed.inject(AuthStore).applyLoginAuthority({
+      userId: "sa",
+      roles: ["super_admin"],
+      isSuperAdmin: true,
+    });
+
+    const result = TestBed.runInInjectionContext(() =>
+      tenantAdminGuard({} as never, {} as never),
+    );
+
+    expect(result).toBe(true);
   });
 });
