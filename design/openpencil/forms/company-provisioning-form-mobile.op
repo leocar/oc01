@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "page-company-provisioning-mobile",
+      "name": "Company Provisioning Form - Mobile",
+      "children": [
+        {
+          "id": "company-mobile-root",
+          "type": "frame",
+          "name": "Responsive Company Provisioning - Mobile",
+          "width": 375,
+          "height": 812,
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [36, 20, 28, 20],
+          "fill": [{ "type": "solid", "color": "#0B1120" }],
+          "children": [
+            {
+              "id": "company-mobile-header",
+              "type": "frame",
+              "name": "Mobile Header",
+              "width": "fill_container",
+              "height": "fit_content",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                { "id": "company-mobile-eyebrow", "type": "text", "role": "caption", "content": "SUPER ADMIN", "fontSize": 11, "fontWeight": 700, "letterSpacing": 1.4, "fill": [{ "type": "solid", "color": "#06B6D4" }] },
+                { "id": "company-mobile-title", "type": "text", "role": "heading", "content": "Create company", "fontFamily": "IBM Plex Sans", "fontSize": 30, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#F9FAFB" }] },
+                { "id": "company-mobile-copy", "type": "text", "role": "body-text", "content": "Provision a tenant and its first tenant administrator from a verified session.", "fontSize": 14, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#94A3B8" }] }
+              ]
+            },
+            {
+              "id": "company-mobile-card",
+              "type": "frame",
+              "role": "card",
+              "name": "Mobile Provisioning Card",
+              "width": "fill_container",
+              "height": "fit_content",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "cornerRadius": 18,
+              "fill": [{ "type": "solid", "color": "#1F2937" }],
+              "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] },
+              "children": [
+                { "id": "company-mobile-card-title", "type": "text", "role": "subheading", "content": "Company details", "fontSize": 22, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#F9FAFB" }] },
+                { "id": "company-mobile-name", "type": "frame", "role": "form-input", "name": "Company Name Input", "width": "fill_container", "height": 52, "padding": [12, 14], "cornerRadius": 12, "fill": [{ "type": "solid", "color": "#111827" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "company-mobile-name-text", "type": "text", "role": "caption", "content": "Acme Operations", "fontSize": 14, "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] },
+                { "id": "company-mobile-email", "type": "frame", "role": "form-input", "name": "Admin Email Input", "width": "fill_container", "height": 52, "padding": [12, 14], "cornerRadius": 12, "fill": [{ "type": "solid", "color": "#111827" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "company-mobile-email-text", "type": "text", "role": "caption", "content": "admin@acme.example", "fontSize": 14, "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] },
+                { "id": "company-mobile-error", "type": "frame", "name": "Validation Error", "width": "fill_container", "height": "fit_content", "padding": [10, 12], "cornerRadius": 12, "fill": [{ "type": "solid", "color": "#3B1219" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#7F1D1D" }] }, "children": [{ "id": "company-mobile-error-text", "type": "text", "role": "caption", "content": "Enter a company name and valid admin email.", "fontSize": 13, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#FCA5A5" }] }] },
+                { "id": "company-mobile-button", "type": "frame", "role": "button", "name": "Create Company Button", "width": "fill_container", "height": 52, "justifyContent": "center", "alignItems": "center", "cornerRadius": 12, "fill": [{ "type": "linear_gradient", "angle": 90, "stops": [{ "offset": 0, "color": "#06B6D4" }, { "offset": 1, "color": "#2563EB" }] }], "children": [{ "id": "company-mobile-button-label", "type": "text", "role": "label", "content": "Create company", "fontSize": 15, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#FFFFFF" }] }] }
+              ]
+            },
+            {
+              "id": "company-mobile-success",
+              "type": "frame",
+              "role": "card",
+              "name": "Mobile Success Summary",
+              "width": "fill_container",
+              "height": "fit_content",
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 18,
+              "cornerRadius": 16,
+              "fill": [{ "type": "solid", "color": "#0F2F28" }],
+              "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#047857" }] },
+              "children": [
+                { "id": "company-mobile-success-title", "type": "text", "role": "subheading", "content": "Company created", "fontSize": 19, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#ECFDF5" }] },
+                { "id": "company-mobile-success-copy", "type": "text", "role": "caption", "content": "Initial tenant-admin is ready. No passwords or bootstrap secrets are displayed.", "fontSize": 12, "lineHeight": 1.4, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#A7F3D0" }] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {},
+  "themes": {}
+}

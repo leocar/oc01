@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "page-login-form",
+      "name": "Login Form",
+      "children": [
+        {
+          "id": "login-root",
+          "type": "frame",
+          "name": "Super User Login Form",
+          "width": 375,
+          "height": 812,
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [44, 24, 32, 24],
+          "fill": [{ "type": "solid", "color": "#0B1120" }],
+          "children": [
+            {
+              "id": "login-brand",
+              "type": "frame",
+              "name": "Brand Header",
+              "width": "fill_container",
+              "height": "fit_content",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                { "id": "login-product", "type": "text", "name": "Product Name", "role": "heading", "content": "OC01 Control", "fontFamily": "IBM Plex Sans", "fontSize": 24, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#F9FAFB" }] },
+                { "id": "login-intro", "type": "text", "name": "Intro", "role": "body-text", "content": "Sign in to provision companies and manage tenant access from a protected console.", "fontFamily": "IBM Plex Sans", "fontSize": 14, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#94A3B8" }] }
+              ]
+            },
+            {
+              "id": "login-card",
+              "type": "frame",
+              "name": "Login Card",
+              "role": "card",
+              "width": "fill_container",
+              "height": "fit_content",
+              "layout": "vertical",
+              "gap": 18,
+              "padding": [24, 20],
+              "cornerRadius": 18,
+              "fill": [{ "type": "solid", "color": "#111827" }],
+              "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] },
+              "effects": [{ "type": "shadow", "offsetX": 0, "offsetY": 24, "blur": 48, "spread": 0, "color": "rgba(0,0,0,0.32)" }],
+              "children": [
+                { "id": "login-title", "type": "text", "role": "heading", "name": "Title", "content": "Super-user login", "fontFamily": "IBM Plex Sans", "fontSize": 28, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#F9FAFB" }] },
+                { "id": "login-subtitle", "type": "text", "role": "body-text", "name": "Subtitle", "content": "Use the approved super-admin account. Sessions are protected with secure cookies.", "fontFamily": "IBM Plex Sans", "fontSize": 14, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#94A3B8" }] },
+                {
+                  "id": "username-group",
+                  "type": "frame",
+                  "role": "form-group",
+                  "name": "Username Field Group",
+                  "layout": "vertical",
+                  "width": "fill_container",
+                  "height": "fit_content",
+                  "gap": 8,
+                  "children": [
+                    { "id": "username-label", "type": "text", "role": "label", "content": "Username", "fontSize": 13, "fontWeight": 600, "fill": [{ "type": "solid", "color": "#CBD5E1" }] },
+                    { "id": "username-input", "type": "frame", "role": "form-input", "name": "Username Input", "layout": "horizontal", "width": "fill_container", "height": 52, "gap": 10, "alignItems": "center", "cornerRadius": 10, "padding": [12, 14], "fill": [{ "type": "solid", "color": "#1A2332" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "username-placeholder", "type": "text", "role": "caption", "content": "test.admin1@example.com", "fontSize": 14, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] }
+                  ]
+                },
+                {
+                  "id": "password-group",
+                  "type": "frame",
+                  "role": "form-group",
+                  "name": "Password Field Group",
+                  "layout": "vertical",
+                  "width": "fill_container",
+                  "height": "fit_content",
+                  "gap": 8,
+                  "children": [
+                    { "id": "password-label", "type": "text", "role": "label", "content": "Password", "fontSize": 13, "fontWeight": 600, "fill": [{ "type": "solid", "color": "#CBD5E1" }] },
+                    { "id": "password-input", "type": "frame", "role": "form-input", "name": "Password Input", "layout": "horizontal", "width": "fill_container", "height": 52, "gap": 10, "alignItems": "center", "cornerRadius": 10, "padding": [12, 14], "fill": [{ "type": "solid", "color": "#1A2332" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "password-placeholder", "type": "text", "role": "caption", "content": "••••••••••••", "fontSize": 14, "width": "fill_container", "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] }
+                  ]
+                },
+                { "id": "login-error", "type": "frame", "name": "Error State", "layout": "horizontal", "width": "fill_container", "height": "fit_content", "padding": [10, 12], "cornerRadius": 10, "fill": [{ "type": "solid", "color": "#3B1219" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#7F1D1D" }] }, "children": [{ "id": "login-error-text", "type": "text", "role": "caption", "content": "Invalid credentials or unavailable API.", "fontSize": 13, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#FCA5A5" }] }] },
+                { "id": "login-button", "type": "frame", "role": "button", "name": "Primary Login Button", "layout": "horizontal", "width": "fill_container", "height": 52, "justifyContent": "center", "alignItems": "center", "cornerRadius": 12, "fill": [{ "type": "linear_gradient", "angle": 90, "stops": [{ "offset": 0, "color": "#06B6D4" }, { "offset": 1, "color": "#2563EB" }] }], "children": [{ "id": "login-button-label", "type": "text", "role": "label", "content": "Sign in", "fontSize": 15, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#FFFFFF" }] }] },
+                { "id": "login-security", "type": "text", "role": "caption", "name": "Security Note", "content": "No password values are stored in the design artifact. Runtime credentials stay in local environment configuration.", "fontSize": 12, "lineHeight": 1.4, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#94A3B8" }] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {},
+  "themes": {}
+}

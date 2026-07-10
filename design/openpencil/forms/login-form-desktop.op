@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "page-login-form-desktop",
+      "name": "Login Form - Desktop",
+      "children": [
+        {
+          "id": "login-desktop-root",
+          "type": "frame",
+          "name": "Responsive Super User Login - Desktop",
+          "width": 1200,
+          "height": 760,
+          "layout": "horizontal",
+          "gap": 0,
+          "fill": [{ "type": "solid", "color": "#0B1120" }],
+          "children": [
+            {
+              "id": "login-desktop-hero",
+              "type": "frame",
+              "name": "Security Hero Panel",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "justifyContent": "center",
+              "gap": 24,
+              "padding": [64, 72],
+              "fill": [{ "type": "solid", "color": "#0F172A" }],
+              "children": [
+                { "id": "login-desktop-eyebrow", "type": "text", "role": "caption", "content": "OC01 CONTROL", "fontSize": 12, "fontWeight": 700, "letterSpacing": 1.6, "fill": [{ "type": "solid", "color": "#06B6D4" }] },
+                { "id": "login-desktop-title", "type": "text", "role": "heading", "content": "Secure super-admin access", "fontFamily": "IBM Plex Sans", "fontSize": 44, "fontWeight": 700, "lineHeight": 1.1, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#F9FAFB" }] },
+                { "id": "login-desktop-copy", "type": "text", "role": "body-text", "content": "Authenticate before provisioning companies or changing tenant access. Runtime credentials stay outside committed artifacts.", "fontSize": 17, "lineHeight": 1.55, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#94A3B8" }] },
+                { "id": "login-desktop-note", "type": "frame", "role": "card", "name": "Readiness Note", "width": "fill_container", "height": "fit_content", "layout": "vertical", "gap": 8, "padding": 20, "cornerRadius": 16, "fill": [{ "type": "solid", "color": "#111827" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "login-desktop-note-text", "type": "text", "role": "caption", "content": "If auth keys or API dependencies are unavailable, show dependency guidance instead of blaming credentials.", "fontSize": 13, "lineHeight": 1.45, "textGrowth": "fixed-width", "width": "fill_container", "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] }
+              ]
+            },
+            {
+              "id": "login-desktop-form-zone",
+              "type": "frame",
+              "name": "Desktop Form Zone",
+              "width": 480,
+              "height": "fill_container",
+              "layout": "vertical",
+              "justifyContent": "center",
+              "padding": [64, 48],
+              "fill": [{ "type": "solid", "color": "#111827" }],
+              "children": [
+                {
+                  "id": "login-desktop-card",
+                  "type": "frame",
+                  "role": "card",
+                  "name": "Login Form Card",
+                  "width": "fill_container",
+                  "height": "fit_content",
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": 28,
+                  "cornerRadius": 20,
+                  "fill": [{ "type": "solid", "color": "#1F2937" }],
+                  "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] },
+                  "children": [
+                    { "id": "login-desktop-card-title", "type": "text", "role": "heading", "content": "Sign in", "fontSize": 30, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#F9FAFB" }] },
+                    { "id": "login-desktop-username", "type": "frame", "role": "form-input", "name": "Username Input", "width": "fill_container", "height": 54, "padding": [12, 14], "cornerRadius": 12, "fill": [{ "type": "solid", "color": "#111827" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "login-desktop-username-text", "type": "text", "role": "caption", "content": "test.admin1@example.com", "fontSize": 14, "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] },
+                    { "id": "login-desktop-password", "type": "frame", "role": "form-input", "name": "Password Input", "width": "fill_container", "height": 54, "padding": [12, 14], "cornerRadius": 12, "fill": [{ "type": "solid", "color": "#111827" }], "stroke": { "thickness": 1, "fill": [{ "type": "solid", "color": "#334155" }] }, "children": [{ "id": "login-desktop-password-text", "type": "text", "role": "caption", "content": "••••••••••••", "fontSize": 14, "fill": [{ "type": "solid", "color": "#CBD5E1" }] }] },
+                    { "id": "login-desktop-button", "type": "frame", "role": "button", "name": "Primary Login Button", "width": "fill_container", "height": 54, "justifyContent": "center", "alignItems": "center", "cornerRadius": 12, "fill": [{ "type": "linear_gradient", "angle": 90, "stops": [{ "offset": 0, "color": "#06B6D4" }, { "offset": 1, "color": "#2563EB" }] }], "children": [{ "id": "login-desktop-button-label", "type": "text", "role": "label", "content": "Sign in", "fontSize": 15, "fontWeight": 700, "fill": [{ "type": "solid", "color": "#FFFFFF" }] }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {},
+  "themes": {}
+}
