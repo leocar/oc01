@@ -108,6 +108,9 @@ export class DatabaseService implements QueryExecutor {
     await executor.query(
       "EXEC sys.sp_set_session_context @key = N'user_role', @value = NULL",
     );
+    await executor.query(
+      "EXEC sys.sp_set_session_context @key = N'global_principal_login', @value = NULL",
+    );
   }
 
   private getDriver(): SqlDriver {

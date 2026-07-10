@@ -60,6 +60,20 @@ class FakeDriver {
   }
 }
 
+function expectSessionContextCleanup(
+  calls: Array<{ sql: string; parameters?: Record<string, unknown> }>,
+): void {
+  expect(calls.at(-3)?.sql).toContain(
+    "sp_set_session_context @key = N'company_id', @value = NULL",
+  );
+  expect(calls.at(-2)?.sql).toContain(
+    "sp_set_session_context @key = N'user_role', @value = NULL",
+  );
+  expect(calls.at(-1)?.sql).toContain(
+    "sp_set_session_context @key = N'global_principal_login', @value = NULL",
+  );
+}
+
 describe("DatabaseService", () => {
   it("sets SQL Server session context from auth context", async () => {
     const database = new DatabaseService();
@@ -99,12 +113,7 @@ describe("DatabaseService", () => {
 
     expect(driver.transaction.committed).toBe(true);
     expect(driver.transaction.rolledBack).toBe(false);
-    expect(driver.transaction.calls.at(-2)?.sql).toContain(
-      "sp_set_session_context @key = N'company_id', @value = NULL",
-    );
-    expect(driver.transaction.calls.at(-1)?.sql).toContain(
-      "sp_set_session_context @key = N'user_role', @value = NULL",
-    );
+    expectSessionContextCleanup(driver.transaction.calls);
   });
 
   it("rolls back transactions and still clears session context on failure", async () => {
@@ -128,12 +137,7 @@ describe("DatabaseService", () => {
 
     expect(driver.transaction.committed).toBe(false);
     expect(driver.transaction.rolledBack).toBe(true);
-    expect(driver.transaction.calls.at(-2)?.sql).toContain(
-      "sp_set_session_context @key = N'company_id', @value = NULL",
-    );
-    expect(driver.transaction.calls.at(-1)?.sql).toContain(
-      "sp_set_session_context @key = N'user_role', @value = NULL",
-    );
+    expectSessionContextCleanup(driver.transaction.calls);
   });
 
   it("preserves the original failure when rollback also fails", async () => {

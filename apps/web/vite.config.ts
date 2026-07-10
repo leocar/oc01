@@ -3,6 +3,11 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [angular()],
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
+  },
   test: {
     allowOnly: false,
     environment: 'jsdom',

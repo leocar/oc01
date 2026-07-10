@@ -17,6 +17,20 @@ describe("AuthStore", () => {
     expect(store.canProvisionTenants()).toBe(true);
   });
 
+  it("applies successful login authority as authenticated state", () => {
+    const store = new AuthStore();
+
+    store.applyLoginAuthority({
+      userId: "sa",
+      roles: ["super_admin"],
+      isSuperAdmin: true,
+    });
+
+    expect(store.userId()).toBe("sa");
+    expect(store.isAuthenticated()).toBe(true);
+    expect(store.canProvisionTenants()).toBe(true);
+  });
+
   it("does not grant provisioning access to tenant reader", () => {
     const store = new AuthStore();
     store.setState({ userId: "u1", companyId: "c1", roles: ["reader"] });
