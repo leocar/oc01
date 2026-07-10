@@ -17,10 +17,23 @@ describe("SQL Server RLS contract", () => {
     const rls = readFileSync(resolve(schemaRoot, "002_rls.sql"), "utf8");
 
     expect(rls).toContain("CREATE FUNCTION dbo.fn_tenant_predicate");
+    expect(rls).toContain(
+      "CREATE FUNCTION dbo.fn_tenant_or_global_principal_filter",
+    );
+    expect(rls).toContain(
+      "@CompanyId IS NULL AND TRY_CAST(SESSION_CONTEXT(N'global_principal_login') AS bit) = 1",
+    );
+    expect(rls).not.toContain("WHERE @CompanyId IS NULL");
     expect(rls).toContain("SESSION_CONTEXT(N'company_id')");
     expect(rls).toContain("CREATE SECURITY POLICY dbo.TenantSecurityPolicy");
     expect(rls).toContain(
-      "ADD FILTER PREDICATE dbo.fn_tenant_predicate(company_id) ON dbo.users",
+      "ADD FILTER PREDICATE dbo.fn_tenant_or_global_principal_filter(company_id) ON dbo.users",
+    );
+    expect(rls).toContain(
+      "ADD FILTER PREDICATE dbo.fn_tenant_or_global_principal_filter(company_id) ON dbo.user_roles",
+    );
+    expect(rls).toContain(
+      "ADD FILTER PREDICATE dbo.fn_tenant_predicate(company_id) ON dbo.audit_events",
     );
     expect(rls).toContain(
       "ADD BLOCK PREDICATE dbo.fn_tenant_predicate(company_id) ON dbo.users AFTER INSERT",

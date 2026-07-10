@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from "@angular/core";
-import type { RoleCode } from "@oc01/contracts";
+import type { LoginResponse, RoleCode } from "@oc01/contracts";
 
 export interface AuthState {
   userId: string | null;
@@ -26,5 +26,13 @@ export class AuthStore {
 
   setState(next: AuthState): void {
     this.state.set(next);
+  }
+
+  applyLoginAuthority(authority: LoginResponse): void {
+    this.state.set({
+      userId: authority.userId,
+      companyId: null,
+      roles: authority.roles,
+    });
   }
 }

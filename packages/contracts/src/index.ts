@@ -13,6 +13,17 @@ export interface AuthContext {
   sourceIp?: string;
 }
 
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  userId: string;
+  roles: RoleCode[];
+  isSuperAdmin: boolean;
+}
+
 export interface CreateCompanyRequest {
   companyName: string;
   adminEmail: string;
